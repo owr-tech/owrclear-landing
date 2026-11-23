@@ -64,6 +64,20 @@ first argument.
 The workflow `.github/workflows/deploy-cloudflare.yml` then builds and deploys
 on every push to `main`.
 
+## Google Analytics 4
+
+The frontend layout loads `gtag.js` and sends a pageview only when
+`NEXT_PUBLIC_GA_MEASUREMENT_ID` is a valid GA4 measurement ID (`G-…`). That env
+var takes precedence over `.figma/make/site.json`, which Figma re-syncs. Set it
+in `.env.local` for local builds, or as a GitHub repo secret of the same name
+for CI — Next.js inlines `NEXT_PUBLIC_*` during the build. With no ID set, no
+GA code is emitted. Successful early-access submissions fire a `generate_lead`
+event; no personal data is sent to GA.
+
+The site is French/EU-facing, where GA cookies normally require prior consent
+under GDPR/CNIL rules. No consent banner is implemented yet — add one before
+using GA for production analytics in the EU.
+
 ## Verified locally
 
 - `pnpm exec opennextjs-cloudflare build` → worker saved to `.open-next/worker.js`

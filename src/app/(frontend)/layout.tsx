@@ -22,7 +22,13 @@ const title = makeSiteSettings.title ?? fr.seo.title
 const description = makeSiteSettings.description ?? fr.seo.description
 const favicon = makeSiteSettings.icons?.icon ?? '/favicon.svg'
 const socialImage = makeSiteSettings.openGraph?.image
-const googleAnalyticsId = sanitizeHtmlAttribute(makeSiteSettings.analytics?.googleAnalyticsId)
+// The env var wins so the ID survives a Figma re-sync of site.json.
+const configuredAnalyticsId =
+  process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID ||
+  sanitizeHtmlAttribute(makeSiteSettings.analytics?.googleAnalyticsId)
+const googleAnalyticsId = /^G-[A-Z0-9]{8,}$/.test(configuredAnalyticsId)
+  ? configuredAnalyticsId
+  : ''
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'),

@@ -27,6 +27,11 @@ const schema = z.object({
 
 const DELIVERY_EMAIL = 'revivaltent91@gmail.com'
 
+function trackLead() {
+  const gtag = (window as Window & { gtag?: (...args: unknown[]) => void }).gtag
+  gtag?.('event', 'generate_lead')
+}
+
 type FormValues = z.infer<typeof schema>
 
 export function EarlyAccessForm() {
@@ -61,6 +66,7 @@ export function EarlyAccessForm() {
         | null
       const activationPending = /activation|actived|activated/i.test(result?.message || '')
       if (response.ok && (String(result?.success) === 'true' || activationPending)) {
+        trackLead()
         setSuccess(true)
         form.reset()
         return
@@ -76,6 +82,7 @@ export function EarlyAccessForm() {
         body: JSON.stringify(values),
       })
       if (!response.ok) throw new Error()
+      trackLead()
       setSuccess(true)
       form.reset()
     } catch {
