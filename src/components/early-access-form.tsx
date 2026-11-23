@@ -5,6 +5,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { CheckCircle2 } from 'lucide-react'
 import { useForm, Controller } from 'react-hook-form'
 import { z } from 'zod'
+import posthog from 'posthog-js'
 import { fr } from '@/content/fr'
 import { Button } from '@/components/ui/button'
 import { Form, FormControl, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
@@ -27,9 +28,10 @@ const schema = z.object({
 
 const DELIVERY_EMAIL = 'revivaltent91@gmail.com'
 
-function trackLead() {
+function trackLead(deliveryPath: 'formsubmit_client' | 'formsubmit_server') {
   const gtag = (window as Window & { gtag?: (...args: unknown[]) => void }).gtag
   gtag?.('event', 'generate_lead')
+  posthog.capture('early_access_requested', { delivery_path: deliveryPath })
 }
 
 type FormValues = z.infer<typeof schema>
@@ -66,7 +68,7 @@ export function EarlyAccessForm() {
         | null
       const activationPending = /activation|actived|activated/i.test(result?.message || '')
       if (response.ok && (String(result?.success) === 'true' || activationPending)) {
-        trackLead()
+        trackLead('formsubmit_client')
         setSuccess(true)
         form.reset()
         return
@@ -82,7 +84,7 @@ export function EarlyAccessForm() {
         body: JSON.stringify(values),
       })
       if (!response.ok) throw new Error()
-      trackLead()
+      trackLead('formsubmit_server')
       setSuccess(true)
       form.reset()
     } catch {
