@@ -29,8 +29,6 @@ const schema = z.object({
 const DELIVERY_EMAIL = 'revivaltent91@gmail.com'
 
 function trackLead(deliveryPath: 'formsubmit_client' | 'formsubmit_server') {
-  const gtag = (window as Window & { gtag?: (...args: unknown[]) => void }).gtag
-  gtag?.('event', 'generate_lead')
   posthog.capture('early_access_requested', { delivery_path: deliveryPath })
 }
 

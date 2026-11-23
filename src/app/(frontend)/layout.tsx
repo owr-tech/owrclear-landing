@@ -1,10 +1,9 @@
 import React from 'react'
 import type { Metadata } from 'next'
 import { Bricolage_Grotesque, Instrument_Sans } from 'next/font/google'
-import Script from 'next/script'
 import { fr } from '@/content/fr'
 import { BodyCustomCode, renderHeadCustomCode } from '@/lib/make-custom-code'
-import { makeSiteSettings, sanitizeHtmlAttribute } from '@/lib/make-site-settings'
+import { makeSiteSettings } from '@/lib/make-site-settings'
 import './styles.css'
 
 const headingFont = Bricolage_Grotesque({
@@ -22,13 +21,6 @@ const title = makeSiteSettings.title ?? fr.seo.title
 const description = makeSiteSettings.description ?? fr.seo.description
 const favicon = makeSiteSettings.icons?.icon ?? '/favicon.svg'
 const socialImage = makeSiteSettings.openGraph?.image
-// The env var wins so the ID survives a Figma re-sync of site.json.
-const configuredAnalyticsId =
-  process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID ||
-  sanitizeHtmlAttribute(makeSiteSettings.analytics?.googleAnalyticsId)
-const googleAnalyticsId = /^G-[A-Z0-9]{8,}$/.test(configuredAnalyticsId)
-  ? configuredAnalyticsId
-  : ''
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'),
@@ -71,22 +63,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <div id="root" tabIndex={-1}>
           {children}
         </div>
-        {googleAnalyticsId && (
-          <>
-            <Script
-              src={`https://www.googletagmanager.com/gtag/js?id=${googleAnalyticsId}`}
-              strategy="afterInteractive"
-            />
-            <Script id="figma-google-analytics" strategy="afterInteractive">
-              {`
-window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-gtag('js', new Date());
-gtag('config', ${JSON.stringify(googleAnalyticsId)});
-`}
-            </Script>
-          </>
-        )}
         <BodyCustomCode html={customScripts?.bodyEnd} />
       </body>
     </html>

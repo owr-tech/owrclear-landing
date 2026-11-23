@@ -64,19 +64,27 @@ first argument.
 The workflow `.github/workflows/deploy-cloudflare.yml` then builds and deploys
 on every push to `main`.
 
-## Google Analytics 4
+## PostHog analytics
 
-The frontend layout loads `gtag.js` and sends a pageview only when
-`NEXT_PUBLIC_GA_MEASUREMENT_ID` is a valid GA4 measurement ID (`G-…`). That env
-var takes precedence over `.figma/make/site.json`, which Figma re-syncs. Set it
-in `.env.local` for local builds, or as a GitHub repo secret of the same name
-for CI — Next.js inlines `NEXT_PUBLIC_*` during the build. With no ID set, no
-GA code is emitted. Successful early-access submissions fire a `generate_lead`
-event; no personal data is sent to GA.
+Client-side PostHog is set up in `instrumentation-client.ts`: pageviews and
+exception capture; successful early-access submissions also fire an
+`early_access_requested` event. Server-side OpenTelemetry logging was removed:
+OpenNext cannot load its external chunk in the Worker and every page returned
+HTTP 500.
 
-The site is French/EU-facing, where GA cookies normally require prior consent
-under GDPR/CNIL rules. No consent banner is implemented yet — add one before
-using GA for production analytics in the EU.
+Two build-time env vars are required — without them PostHog silently captures
+nothing:
+
+    NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN   # project token (phc_...)
+    NEXT_PUBLIC_POSTHOG_HOST           # e.g. https://us.i.posthog.com or https://eu.i.posthog.com
+
+Set them in `.env.local` for local builds, and as GitHub repo secrets for CI
+(the workflow passes them to the build step, where Next.js inlines them).
+The token is a public project token, not a secret API key. No Google Analytics
+is used.
+
+The site is French/EU-facing; analytics cookies normally need prior consent
+under GDPR/CNIL. No consent banner is implemented yet.
 
 ## Verified locally
 

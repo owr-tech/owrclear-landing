@@ -11,5 +11,6 @@ supportedArchitectures:
     - glibc
 
 allowBuilds:
+  core-js: true
   esbuild: true
   workerd: true

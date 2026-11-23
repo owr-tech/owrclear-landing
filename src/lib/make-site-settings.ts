@@ -13,9 +13,6 @@ export type MakeSiteSettings = {
   openGraph?: {
     image?: string
   }
-  analytics?: {
-    googleAnalyticsId?: string
-  }
   customScripts?: {
     headStart?: string
     headEnd?: string

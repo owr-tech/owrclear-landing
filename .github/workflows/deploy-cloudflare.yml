@@ -32,11 +32,12 @@ jobs:
 
       # Next.js' agent upgrade nudge is disabled in next.config.ts (agentUpgrade: false)
       # so this cannot stop waiting for interactive input in CI.
-      # Next.js inlines NEXT_PUBLIC_* at build time, so GA needs it here.
+      # Next.js inlines NEXT_PUBLIC_* at build time, so analytics needs them here.
       - name: Build Cloudflare worker
         run: pnpm exec opennextjs-cloudflare build
         env:
-          NEXT_PUBLIC_GA_MEASUREMENT_ID: ${{ secrets.NEXT_PUBLIC_GA_MEASUREMENT_ID }}
+          NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN: ${{ secrets.NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN }}
+          NEXT_PUBLIC_POSTHOG_HOST: ${{ secrets.NEXT_PUBLIC_POSTHOG_HOST }}
 
       - name: Deploy
         run: pnpm exec wrangler deploy
