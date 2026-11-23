@@ -86,6 +86,30 @@ is used.
 The site is French/EU-facing; analytics cookies normally need prior consent
 under GDPR/CNIL. No consent banner is implemented yet.
 
+## Dev-only element scoping (live feedback)
+
+In development, a small badge appears bottom-left: "Alt + Click an element to
+scope it for Hermes". Alt+Click outlines the element and posts its tag, CSS
+path, closest section and HTML snippet to `/api/inspect`. Read the latest pick
+with `curl -s http://localhost:3000/api/inspect`. Escape clears the outline.
+Both the badge and the API route are disabled in production builds.
+
+Section-to-source map (all in `src/components/sections/landing-sections.tsx`):
+
+    #accueil            HeroSection
+    (dark strip)        ProblemStrip
+    #modes-saisie       InputModesSection
+    #fonctionnalites    FeaturesSection
+    #comment-ca-marche  HowSection
+    (cream strip)       WhatsappSection
+    #validation         DashboardSection
+    #pour-qui           AudiencesSection
+    (white strip)       RolesSection
+    #tarifs             PricingSection
+    #demande-demo       FormSection (form: early-access-form.tsx)
+    #faq                FaqSection
+    footer              FinalCtaAndFooter
+
 ## Verified locally
 
 - `pnpm exec opennextjs-cloudflare build` → worker saved to `.open-next/worker.js`

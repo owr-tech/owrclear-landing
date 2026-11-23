@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 import { Bricolage_Grotesque, Instrument_Sans } from 'next/font/google'
 import { fr } from '@/content/fr'
 import { BodyCustomCode, renderHeadCustomCode } from '@/lib/make-custom-code'
+import { DevInspector } from '@/components/dev-inspector'
 import { makeSiteSettings } from '@/lib/make-site-settings'
 import './styles.css'
 
@@ -64,6 +65,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           {children}
         </div>
         <BodyCustomCode html={customScripts?.bodyEnd} />
+        <DevInspector />
       </body>
     </html>
   )
