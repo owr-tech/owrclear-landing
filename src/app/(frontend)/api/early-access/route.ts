@@ -1,5 +1,8 @@
+import { SeverityNumber } from '@opentelemetry/api-logs'
+import { after } from 'next/server'
 import { z } from 'zod'
 import { fr } from '@/content/fr'
+import { posthogLogProvider } from '../../../../../instrumentation'
 
 const requestSchema = z
   .object({
@@ -12,10 +15,32 @@ const requestSchema = z
 
 const DELIVERY_EMAIL = process.env.EARLY_ACCESS_EMAIL || 'revivaltent91@gmail.com'
 
+function captureEarlyAccessLog(
+  body: string,
+  severityNumber: SeverityNumber,
+  attributes: Record<string, string | number | boolean>,
+) {
+  if (!posthogLogProvider) return
+
+  posthogLogProvider.getLogger('posthog-early-access').emit({
+    body,
+    severityNumber,
+    attributes,
+  })
+
+  after(async () => {
+    await posthogLogProvider.forceFlush().catch(() => {})
+  })
+}
+
 export async function POST(request: Request) {
   const result = requestSchema.safeParse(await request.json().catch(() => null))
 
   if (!result.success) {
+    captureEarlyAccessLog('early_access_request_rejected', SeverityNumber.WARN, {
+      endpoint: '/api/early-access',
+      outcome: 'validation_rejected',
+    })
     return Response.json({ ok: false, message: fr.api.invalid }, { status: 400 })
   }
 
@@ -53,12 +78,26 @@ export async function POST(request: Request) {
       if (activationPending) {
         console.info('[early-access] FormSubmit activation pending; check the destination inbox')
       }
+      captureEarlyAccessLog('early_access_delivery_succeeded', SeverityNumber.INFO, {
+        endpoint: '/api/early-access',
+        outcome: 'delivered',
+        activation_pending: activationPending,
+      })
       return Response.json({ ok: true, message: fr.api.ok })
     }
 
+    captureEarlyAccessLog('early_access_delivery_failed', SeverityNumber.ERROR, {
+      endpoint: '/api/early-access',
+      outcome: 'delivery_rejected',
+      response_status: forwarded.status,
+    })
     console.error('[early-access] delivery failed', forwarded.status, payload)
     return Response.json({ ok: false, message: fr.api.invalid }, { status: 502 })
   } catch (error) {
+    captureEarlyAccessLog('early_access_delivery_failed', SeverityNumber.ERROR, {
+      endpoint: '/api/early-access',
+      outcome: 'delivery_error',
+    })
     console.error('[early-access] delivery error', error)
     return Response.json({ ok: false, message: fr.api.invalid }, { status: 502 })
   }
