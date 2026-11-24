@@ -313,11 +313,8 @@ export const fr = {
         period: 'sans engagement',
         description: "L'essentiel pour démarrer sans frais.",
         features: [
-          'Gestion des stocks',
-          'Gestion des revenus',
-          'Gestion des dépenses',
-          'Tenue de la comptabilité',
-          'Bilan financier',
+          'Gestion des stocks / revenues / dépenses / comptabilité',
+          'Bilan financier Quotidien, Mensuel',
           'Suivi fiscal adapté au régime fiscal de votre entreprise',
         ],
         featured: false,
@@ -330,6 +327,8 @@ export const fr = {
         features: [
           'Tout le pack Power',
           'Relevés de ventes et dépenses par vocal WhatsApp',
+          'Prévision des ventes et dépenses pour le mois suivant',
+          'Conseil de gestion dans la langue locale de votre choix: Éwé, Kotokoli, Kabyè, Haoussa, Dioula, Wolof, etc.',
           'Bilan Financier dans la langue locale de votre choix: Éwé, Kotokoli, Kabyè, Haoussa, Dioula, Wolof, etc.',
         ],
         featured: true,
