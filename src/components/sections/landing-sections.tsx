@@ -4,8 +4,10 @@ import {
   Camera,
   Check,
   CheckCircle2,
+  CreditCard,
   History,
   ListChecks,
+  MapPin,
   MessageSquareText,
   Mic2,
   Minus,
@@ -18,6 +20,7 @@ import {
   WifiOff,
 } from 'lucide-react'
 import { fr } from '@/content/fr'
+import { paymentMethodsByCountry } from '@/content/payment-methods'
 import { CookieSettingsButton } from '@/components/cookie-consent'
 import { EarlyAccessForm } from '@/components/early-access-form'
 import { StackCards } from '@/components/stack-cards'
@@ -691,6 +694,60 @@ export function PricingSection() {
           ))}
         </div>
         <p className="mt-6 text-center text-sm text-muted-foreground">{fr.pricing.note}</p>
+
+        {paymentMethodsByCountry.length > 0 && (
+          <div className="mx-auto mt-14 max-w-4xl rounded-3xl border border-primary/10 bg-card p-6 shadow-sm sm:p-9">
+            <div className="text-center">
+              <p className="text-sm font-semibold text-primary">{fr.pricing.payment.eyebrow}</p>
+              <h3 className="mt-2 font-heading text-2xl font-bold tracking-tight sm:text-3xl">
+                {fr.pricing.payment.title}
+              </h3>
+              <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+                {fr.pricing.payment.description}
+              </p>
+            </div>
+            <div className="mt-8 grid gap-4 sm:grid-cols-2">
+              {paymentMethodsByCountry.map((country) => (
+                <div className="rounded-2xl bg-muted/60 p-5" key={country.code}>
+                  <p className="flex items-center gap-2 text-sm font-bold">
+                    <MapPin className="size-4 text-primary" aria-hidden />
+                    {country.name}
+                  </p>
+                  <ul className="mt-4 flex flex-wrap gap-2">
+                    {country.methods.map((method) => {
+                      const Icon = method.kind === 'card' ? CreditCard : Smartphone
+                      return (
+                        <li
+                          className="inline-flex items-center gap-2 rounded-full border border-primary/10 bg-card px-3 py-1.5 text-sm font-medium"
+                          key={method.id}
+                        >
+                          {method.logo ? (
+                            <img
+                              alt=""
+                              className="h-6 w-auto max-w-[5.5rem] object-contain"
+                              height={24}
+                              src={method.logo}
+                              width={88}
+                            />
+                          ) : (
+                            <Icon className="size-4 text-primary" aria-hidden />
+                          )}
+                          {method.label}
+                        </li>
+                      )
+                    })}
+                  </ul>
+                </div>
+              ))}
+            </div>
+            <p className="mt-6 text-center text-xs text-muted-foreground">
+              {fr.pricing.payment.note}
+            </p>
+            <p className="mt-2 text-center text-[11px] text-muted-foreground/70">
+              {fr.pricing.payment.credits}
+            </p>
+          </div>
+        )}
       </div>
     </section>
   )

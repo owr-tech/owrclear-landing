@@ -17,8 +17,7 @@ export const fr = {
   },
   hero: {
     eyebrow: 'Votre comptabilité et trésorerie simplifiée.',
-    title:
-      'Fini les pertes, Adoptez la croissance.',
+    title: 'Fini les pertes, Adoptez la croissance.',
     subtitle:
       "Enregistrez vos ventes, dépenses et stocks directement dans l'application, par vocal WhatsApp ou avec une photo de votre cahier. Vérifiez, validez, puis voyez votre situation en un coup d'œil.",
     primary: 'Demander une démo',
@@ -42,7 +41,7 @@ export const fr = {
   },
   inputModes: {
     eyebrow: 'Une seule appli, trois façons de travailler',
-    title: "Renseignez vos chiffres de la manière la plus simple pour vous.",
+    title: 'Renseignez vos chiffres de la manière la plus simple pour vous.',
     description:
       'Tout arrive dans la même application. Vous gardez vos habitudes, sans passer votre journée à taper.',
     items: [
@@ -257,14 +256,10 @@ export const fr = {
         id: 'prestataires',
         label: 'Prestataires de services',
         text: 'Suivez les services et les produits vendus. Gardez une vue nette du stock au fil de la journée.',
-        bullets: [
-          'Services réalisés',
-          'Produits utilisés ou vendus',
-          
-        ],
+        bullets: ['Services réalisés', 'Produits utilisés ou vendus'],
         available: true,
       },
-      
+
       {
         id: 'salons',
         label: 'Salons de coiffure',
@@ -354,6 +349,15 @@ export const fr = {
     ],
     cta: 'Demander une démo',
     note: 'Prix indiqués en FCFA par mois. Contactez-nous pour en savoir plus.',
+    payment: {
+      eyebrow: 'Moyens de paiement',
+      title: 'Payez votre abonnement comme il vous convient.',
+      description:
+        'Mobile money ou carte bancaire : choisissez le moyen de paiement disponible dans votre pays.',
+      note: "D'autres pays et moyens de paiement seront ajoutés progressivement.",
+      credits:
+        'Logos : Mixx by Yas, Airtel Money, Moov Africa Togo (CC BY-SA 4.0), Wave, Orange Money, MTN MoMo, M-PESA.',
+    },
   },
   form: {
     eyebrow: 'Accès anticipé',

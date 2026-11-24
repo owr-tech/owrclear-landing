@@ -19,10 +19,10 @@ export function SiteHeader() {
     <header className="sticky top-0 z-40 border-b border-primary/10 bg-background/88 backdrop-blur-xl">
       <nav
         aria-label={fr.nav.label}
-        className="mx-auto flex h-18 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8"
+        className="mx-auto flex h-21 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8"
       >
         <a
-          className="font-heading text-sm font-bold tracking-tight text-primary focus-visible:outline-2 focus-visible:outline-offset-4"
+          className="font-heading text-base font-bold tracking-tight text-primary focus-visible:outline-2 focus-visible:outline-offset-4"
           href="#accueil"
         >
           {fr.logo}
@@ -30,7 +30,7 @@ export function SiteHeader() {
         <div className="hidden items-center gap-7 lg:flex">
           {fr.nav.links.map((link) => (
             <a
-              className="text-sm font-semibold text-foreground/70 transition-colors hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-4"
+              className="text-base font-semibold text-foreground/70 transition-colors hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-4"
               href={link.href}
               key={link.href}
             >
