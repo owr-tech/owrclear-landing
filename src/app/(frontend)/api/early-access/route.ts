@@ -7,6 +7,7 @@ const requestSchema = z
     contact: z.string().trim().min(5).max(150),
     organisation: z.string().trim().min(1).max(100),
     message: z.string().trim().max(1000).optional(),
+    contactConsent: z.literal(true),
   })
   .strict()
 
@@ -37,14 +38,16 @@ export async function POST(request: Request) {
         contact: data.contact,
         organisation: data.organisation,
         message: data.message || '(aucun message)',
+        consentement_contact: 'oui',
         _captcha: 'false',
       }),
       signal: AbortSignal.timeout(30000),
     })
 
-    const payload = (await forwarded.json().catch(() => null)) as
-      | { success?: string | boolean; message?: string }
-      | null
+    const payload = (await forwarded.json().catch(() => null)) as {
+      success?: string | boolean
+      message?: string
+    } | null
 
     const activationPending =
       typeof payload?.message === 'string' && /activation|actived|activated/i.test(payload.message)

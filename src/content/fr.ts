@@ -16,8 +16,9 @@ export const fr = {
     cta: 'Demander une démo',
   },
   hero: {
-    eyebrow: 'Parlez, photographiez ou saisissez.',
-    title: 'Parlez, photographiez ou saisissez. Tout arrive au même endroit.',
+    eyebrow: 'Votre comptabilité et trésorerie simplifiée.',
+    title:
+      'Fini les pertes, Adoptez la croissance.',
     subtitle:
       "Enregistrez vos ventes, dépenses et stocks directement dans l'application, par vocal WhatsApp ou avec une photo de votre cahier. Vérifiez, validez, puis voyez votre situation en un coup d'œil.",
     primary: 'Demander une démo',
@@ -37,11 +38,11 @@ export const fr = {
   },
   problem: {
     lines: ['Le cahier se perd.', 'Les calculs prennent du temps.', 'Les erreurs coûtent cher.'],
-    answer: 'range tout pour vous.',
+    answer: 'vous aide à gérer et à faire croître votre activité.',
   },
   inputModes: {
     eyebrow: 'Une seule appli, trois façons de travailler',
-    title: "Alimentez vos chiffres comme c'est le plus simple pour vous.",
+    title: "Renseignez vos chiffres de la manière la plus simple pour vous.",
     description:
       'Tout arrive dans la même application. Vous gardez vos habitudes, sans passer votre journée à taper.',
     items: [
@@ -242,21 +243,33 @@ export const fr = {
     soon: 'Bientôt',
     items: [
       {
-        id: 'tissus',
-        label: 'Boutiques de tissus et vêtements',
-        text: 'Suivez les articles, les variantes et les coupes vendues. Gardez une vue nette du stock au fil de la journée.',
+        id: 'commerce',
+        label: 'Commerce et boutiques',
+        text: 'Suivez les articles, les ventes. Gardez une vue nette du stock au fil de la journée.',
         bullets: [
-          'Variantes de taille et couleur',
-          'Vente au mètre ou au coupon',
+          'Vendus par unité, par lot ou au poids',
+          'Vente au détail ou en gros',
           'Stock mis à jour après chaque vente',
         ],
         available: true,
       },
       {
+        id: 'prestataires',
+        label: 'Prestataires de services',
+        text: 'Suivez les services et les produits vendus. Gardez une vue nette du stock au fil de la journée.',
+        bullets: [
+          'Services réalisés',
+          'Produits utilisés ou vendus',
+          
+        ],
+        available: true,
+      },
+      
+      {
         id: 'salons',
         label: 'Salons de coiffure',
         text: "Réunissez les services et les produits vendus. Suivez simplement l'activité de l'équipe.",
-        bullets: ['Services réalisés', "Commissions de l'équipe", 'Produits utilisés ou vendus'],
+        bullets: ['Services réalisés', 'Produits utilisés ou vendus'],
         available: false,
       },
       {
@@ -271,7 +284,7 @@ export const fr = {
         label: 'Églises et associations',
         text: 'Classez les entrées et dépenses selon leur usage. Rendez la situation lisible aux personnes autorisées.',
         bullets: ['Dons classés par fonds', 'Dépenses par activité', 'Accès adaptés à chaque rôle'],
-        available: false,
+        available: true,
       },
     ],
   },
@@ -301,43 +314,46 @@ export const fr = {
     plans: [
       {
         name: 'Power',
-        price: '[PLACEHOLDER: prix Power]',
-        period: 'abonnement',
-        description: '[PLACEHOLDER: description Power]',
+        price: 'Gratuit',
+        period: 'sans engagement',
+        description: "L'essentiel pour démarrer sans frais.",
         features: [
-          '[PLACEHOLDER: avantage 1 Power]',
-          '[PLACEHOLDER: avantage 2 Power]',
-          '[PLACEHOLDER: avantage 3 Power]',
+          'Gestion des stocks',
+          'Gestion des revenus',
+          'Gestion des dépenses',
+          'Tenue de la comptabilité',
+          'Bilan financier',
+          'Suivi fiscal adapté au régime fiscal de votre entreprise',
         ],
         featured: false,
       },
       {
         name: 'Wealth',
-        price: '[PLACEHOLDER: prix Wealth]',
-        period: 'abonnement',
-        description: '[PLACEHOLDER: description Wealth]',
+        price: '3 000 FCFA',
+        period: 'par mois',
+        description: 'Power, avec vos comptes suivis à la voix.',
         features: [
-          '[PLACEHOLDER: avantage 1 Wealth]',
-          '[PLACEHOLDER: avantage 2 Wealth]',
-          '[PLACEHOLDER: avantage 3 Wealth]',
+          'Tout le pack Power',
+          'Relevés de ventes et dépenses par vocal WhatsApp',
+          'Bilan Financier dans la langue locale de votre choix: Éwé, Kotokoli, Kabyè, Haoussa, Dioula, Wolof, etc.',
         ],
         featured: true,
       },
       {
-        name: 'Glroy',
-        price: '[PLACEHOLDER: prix Glroy]',
-        period: 'abonnement',
-        description: '[PLACEHOLDER: description Glroy]',
+        name: 'Glory',
+        price: '7 000 FCFA +',
+        period: 'par mois',
+        description: 'Wealth, avec un accompagnement sur mesure.',
         features: [
-          '[PLACEHOLDER: avantage 1 Glroy]',
-          '[PLACEHOLDER: avantage 2 Glroy]',
-          '[PLACEHOLDER: avantage 3 Glroy]',
+          'Tout le pack Wealth',
+          'Accompagnement personnalisé par un expert-comptable et fiscaliste',
+          'Accompagnement pour accès au crédit',
         ],
         featured: false,
       },
     ],
     cta: 'Demander une démo',
-    note: 'Les prix et le contenu définitif de chaque pack sont à renseigner avant publication.',
+    note: 'Prix indiqués en FCFA par mois. Contactez-nous pour en savoir plus.',
   },
   form: {
     eyebrow: 'Accès anticipé',
@@ -367,6 +383,10 @@ export const fr = {
     ],
     submit: 'Demander une démo',
     submitting: 'Envoi en cours…',
+    consent:
+      "J'accepte que CLEAR utilise ces coordonnées pour me recontacter au sujet de ma demande et de ses services.",
+    privacyNotice:
+      'Vos données sont utilisées uniquement pour répondre à cette demande. Consultez la politique de confidentialité.',
     successTitle: 'Merci, votre demande est bien partie.',
     successText: 'Nous vous recontacterons avec les prochaines étapes.',
     retry: 'Réessayer',
@@ -374,6 +394,7 @@ export const fr = {
       name: 'Indiquez votre nom.',
       contact: 'Indiquez un e-mail ou un numéro WhatsApp.',
       organisation: "Choisissez un type d'organisation.",
+      consent: 'Votre accord est nécessaire pour vous recontacter.',
       submit: "L'envoi a échoué. Réessayez dans un instant.",
     },
   },
@@ -404,7 +425,7 @@ export const fr = {
       {
         question: 'Combien ça coûte ?',
         answer:
-          'Les packs Power, Wealth et Glroy sont présentés dans la section Tarifs. Les montants définitifs seront renseignés avant publication.',
+          'Les packs Power (gratuit), Wealth (3 000 FCFA/mois) et Glory (à partir de 7 000 FCFA/mois) sont présentés dans la section Tarifs.',
       },
     ],
   },
@@ -414,11 +435,13 @@ export const fr = {
     button: 'Demander une démo',
   },
   footer: {
-    text: "La gestion financière pratique pour les organisations d'Afrique de l'Ouest francophone.",
+    text: 'La gestion financière pratique pour les TPE et PME africaines.',
     contactTitle: 'Contact',
     email: '[PLACEHOLDER: e-mail]',
     phone: '[PLACEHOLDER: téléphone]',
-    legal: '© [YEAR] CLEAR',
+    privacy: 'Politique de confidentialité',
+    cookieSettings: 'Gérer les cookies',
+    legal: 'CLEAR',
   },
   api: {
     invalid: 'Données invalides.',

@@ -83,8 +83,7 @@ Set them in `.env.local` for local builds, and as GitHub repo secrets for CI
 The token is a public project token, not a secret API key. No Google Analytics
 is used.
 
-The site is French/EU-facing; analytics cookies normally need prior consent
-under GDPR/CNIL. No consent banner is implemented yet.
+A consent banner is implemented in development and production: it shows until the visitor accepts or refuses, and stores the choice in `localStorage` under `clear-consent-v1` for 12 months. PostHog is initialised with `opt_out_capturing_by_default: true` and `persistence: 'memory'`, then switched to `localStorage+cookie` only after acceptance; see `src/lib/consent.ts`, `src/components/cookie-consent.tsx` and `instrumentation-client.ts`. The early-access form requires an explicit recontact consent, and `/confidentialite` documents purposes, recipients, transfers, retention and rights. Legal research and remaining manual steps are in `CONFORMITE.md`.
 
 ## Dev-only element scoping (live feedback)
 
