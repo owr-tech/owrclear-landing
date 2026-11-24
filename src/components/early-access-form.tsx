@@ -24,6 +24,7 @@ const schema = z.object({
   contact: z.string().trim().min(5, fr.form.errors.contact).max(150),
   organisation: z.string().min(1, fr.form.errors.organisation),
   message: z.string().trim().max(1000).optional(),
+  contactConsent: z.boolean().refine((value) => value, { message: fr.form.errors.consent }),
 })
 
 const DELIVERY_EMAIL = 'revivaltent91@gmail.com'
@@ -39,7 +40,7 @@ export function EarlyAccessForm() {
   const [submitError, setSubmitError] = useState('')
   const form = useForm<FormValues>({
     resolver: zodResolver(schema),
-    defaultValues: { name: '', contact: '', organisation: '', message: '' },
+    defaultValues: { name: '', contact: '', organisation: '', message: '', contactConsent: false },
   })
 
   async function onSubmit(values: FormValues) {
@@ -50,6 +51,7 @@ export function EarlyAccessForm() {
       contact: values.contact,
       organisation: values.organisation,
       message: values.message || '(aucun message)',
+      consentement_contact: values.contactConsent ? 'oui' : 'non',
       _captcha: 'false',
     }
 
@@ -61,9 +63,10 @@ export function EarlyAccessForm() {
         headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
         body: JSON.stringify(payload),
       })
-      const result = (await response.json().catch(() => null)) as
-        | { success?: string | boolean; message?: string }
-        | null
+      const result = (await response.json().catch(() => null)) as {
+        success?: string | boolean
+        message?: string
+      } | null
       const activationPending = /activation|actived|activated/i.test(result?.message || '')
       if (response.ok && (String(result?.success) === 'true' || activationPending)) {
         trackLead('formsubmit_client')
@@ -196,6 +199,31 @@ export function EarlyAccessForm() {
             {submitError}
           </p>
         )}
+        <FormItem>
+          <label
+            className="flex items-start gap-3 text-sm leading-relaxed"
+            htmlFor="contactConsent"
+          >
+            <input
+              aria-invalid={Boolean(form.formState.errors.contactConsent)}
+              className="mt-1 size-4 shrink-0 accent-[var(--primary)]"
+              id="contactConsent"
+              type="checkbox"
+              {...form.register('contactConsent')}
+            />
+            <span>{fr.form.consent}</span>
+          </label>
+          <p className="text-xs leading-relaxed text-muted-foreground">
+            {fr.form.privacyNotice}{' '}
+            <a
+              className="font-semibold text-primary underline underline-offset-2"
+              href="/confidentialite"
+            >
+              {fr.footer.privacy}
+            </a>
+          </p>
+          <FormMessage name="contactConsent" />
+        </FormItem>
         <Button
           className="mt-2 h-12 rounded-full text-base"
           disabled={form.formState.isSubmitting}

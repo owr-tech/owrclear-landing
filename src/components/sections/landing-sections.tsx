@@ -18,6 +18,7 @@ import {
   WifiOff,
 } from 'lucide-react'
 import { fr } from '@/content/fr'
+import { CookieSettingsButton } from '@/components/cookie-consent'
 import { EarlyAccessForm } from '@/components/early-access-form'
 import { StackCards } from '@/components/stack-cards'
 import { WhatsappDemo } from '@/components/whatsapp-demo'
@@ -495,10 +496,10 @@ export function AudiencesSection() {
           defaultValue={fr.audiences.items[0].id}
           orientation="vertical"
         >
-          <TabsList className="h-auto w-full flex-col justify-center bg-muted p-2 lg:min-h-[32rem]">
+          <TabsList className="h-auto w-full flex-col justify-center gap-1 self-start bg-muted p-2">
             {fr.audiences.items.map((item) => (
               <TabsTrigger
-                className="h-auto w-full min-w-0 justify-between px-3 py-3 text-left whitespace-normal sm:px-4 sm:py-4"
+                className="h-auto w-full min-w-0 flex-none justify-between px-2.5 py-1.5 text-left whitespace-normal"
                 key={item.id}
                 value={item.id}
               >
@@ -510,8 +511,8 @@ export function AudiencesSection() {
           <div className="min-w-0 w-full">
             {fr.audiences.items.map((item) => (
               <TabsContent className="w-full" key={item.id} value={item.id}>
-                <Card className="min-h-[30rem] gap-0 bg-primary py-0 text-primary-foreground shadow-lg lg:min-h-[32rem]">
-                  <CardContent className="flex min-h-[30rem] flex-col p-6 sm:p-8 lg:min-h-[32rem] lg:p-10">
+                <Card className="gap-0 bg-primary py-0 text-primary-foreground shadow-lg">
+                  <CardContent className="flex flex-col p-6 sm:p-8 lg:p-10">
                     <div className="flex flex-wrap items-start justify-between gap-3">
                       <h3 className="max-w-2xl font-heading text-3xl font-bold tracking-tight sm:text-4xl">
                         {item.label}
@@ -779,6 +780,13 @@ export function FinalCtaAndFooter() {
                 {link.label}
               </a>
             ))}
+            <a
+              className="text-sm font-semibold text-primary-foreground/70 transition-colors hover:text-accent"
+              href="/confidentialite"
+            >
+              {fr.footer.privacy}
+            </a>
+            <CookieSettingsButton />
           </nav>
           <div>
             <p className="font-bold text-primary-foreground">{fr.footer.contactTitle}</p>
@@ -795,7 +803,7 @@ export function FinalCtaAndFooter() {
           </p>
         </div>
         <p className="border-t border-primary-foreground/15 py-5 text-center text-xs text-primary-foreground/55">
-          {fr.footer.legal}
+          © {new Date().getFullYear()} {fr.footer.legal}
         </p>
       </div>
     </footer>

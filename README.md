@@ -40,7 +40,7 @@ Recherchez `[PLACEHOLDER:` dans `src/content/fr.ts`. Les placeholders présents 
 
 1. Prix, description et avantages du pack `Power`
 2. Prix, description et avantages du pack `Wealth`
-3. Prix, description et avantages du pack `Glroy`
+3. Prix, description et avantages du pack `Glory`
 4. `[PLACEHOLDER: e-mail]`
 5. `[PLACEHOLDER: téléphone]`
 
@@ -90,5 +90,4 @@ src/
 │   └── ui/
 └── content/fr.ts
 ```
-
 La page `/` est fixe et doit être livrée comme route statique. La route POST du formulaire est exécutée à la demande.
